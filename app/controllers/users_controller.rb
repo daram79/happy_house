@@ -24,17 +24,28 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new
-
-    respond_to do |format|
+    user = User.find_by_email(params[:user][:email])
+    unless user
+      @user = User.new(user_params)
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
+        render json: {id: @user.id}
       else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        render json: {id: nil}
       end
+    else
+      render json: {id: user.id}
     end
+    
+
+    # respond_to do |format|
+      # if @user.save
+        # format.html { redirect_to @user, notice: 'User was successfully created.' }
+        # format.json { render :show, status: :created, location: @user }
+      # else
+        # format.html { render :new }
+        # format.json { render json: @user.errors, status: :unprocessable_entity }
+      # end
+    # end
   end
 
   # PATCH/PUT /users/1
@@ -106,6 +117,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params[:user]
+      params[:user].permit(:email)
     end
 end
