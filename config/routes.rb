@@ -3,11 +3,20 @@ Rails.application.routes.draw do
     member do
       put "set_registration_id"
       get "get_alram_on"
+      get "get_user_data"
     end
     collection do
       get "agreement"
       get "personal_information_policy"
       get "notice"
+      get "createVisitCount"
+    end
+  end
+  
+  resources :user_covers do
+    collection do
+      post "add_name"
+      get "get_image_url"
     end
   end
   

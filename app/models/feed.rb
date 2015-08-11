@@ -4,6 +4,9 @@ class Feed < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
   has_many :feed_photos, :dependent => :destroy
   has_many :feed_tags, :dependent => :destroy
+  has_many :alram, :as => :alram
+  
+  after_save :create_alram
   
   accepts_nested_attributes_for :feed_photos, reject_if: :feed_photos_attributes.blank?#, allow_destroy: true
   
@@ -40,6 +43,14 @@ class Feed < ActiveRecord::Base
       html_content.gsub!(_tag, " <b><a href='search://#{tag}'>#{_tag}</a></b>")
     end
     html_content
+  end
+  
+  def create_alram
+    user_ids = User.where(alram_on: true).pluck(:id)
+    user_ids.delete(self.user_id)
+    user_ids.each do |user_id|
+      self.alram.create(user_id: user_id, send_user_id: self.user_id)
+    end
   end
   
 end

@@ -20,7 +20,7 @@ while true do
   registration_id = Alram.where(send_flg: false).group(:user_id).includes(:user).pluck(:registration_id)
   registration_id.compact
   unless registration_id.blank?
-    gcm = GCM.new("AIzaSyDyxck6hFnEtoBkTz3FNdvme3w3csLdTWA")
+    gcm = GCM.new("AIzaSyCTngq3qlQObAe4-uaWapN3qAfex-Ej75s")
     response = gcm.send(registration_id)
     alrams.update_all(send_flg: true)
   end

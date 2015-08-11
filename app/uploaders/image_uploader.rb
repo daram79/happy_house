@@ -8,14 +8,14 @@ class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MimeTypes
   include CarrierWave::RMagick  #리사이즈
   
-  process :resize_to_limit => [500, 0]  #사이즈 상한
+  process :resize_to_limit => [1000, 0]  #사이즈 상한
   process :convert => 'jpg'
   process :set_content_type
   process :fix_exif_rotation
   
   #섬네일
   version :thumb do
-    process :resize_to_limit => [50, 50]
+    process :resize_to_limit => [100, 100]
   end
   
   #사진 옆으로 보이는거 수정
@@ -38,9 +38,11 @@ class ImageUploader < CarrierWave::Uploader::Base
   # end
   # 日付(20131001.jpgみたいなファイル名)で保存する
   def filename
-    time = Time.now
-    name = time.strftime('%Y%m%d%H%M%S') + '.jpg'
-    name.downcase
+    if @file
+      time = Time.now
+      name = time.strftime('%Y%m%d%H%M%S') + '.jpg'
+      name.downcase
+    end
   end
   # include CarrierWave::MiniMagick
 

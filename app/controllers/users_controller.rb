@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :get_user_data]
 
   # GET /users
   # GET /users.json
@@ -70,6 +70,19 @@ class UsersController < ApplicationController
   def get_alram_on
     user = User.find(params[:id])
     render :json => {status: 200, alram_on: user.alram_on}
+  end
+  
+  def get_user_data
+    render :json => {status: 200, alram_on: @user.alram_on, user_cover: @user.user_cover}
+  end
+  
+  def createVisitCount
+    user_id = params[:user_id]
+    visit_user_id = params[:visit_user_id]
+    if UserVisitCount.chk_visit_data(user_id, visit_user_id)
+      UserVisitCount.create(user_id: user_id, visit_user_id: visit_user_id)
+    end
+    render :json => {status: 200}
   end
   
   def agreement
