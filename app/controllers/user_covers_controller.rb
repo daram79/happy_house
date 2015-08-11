@@ -62,7 +62,8 @@ class UserCoversController < ApplicationController
     
     img_url = "/uploads/cover/cover.png" unless img_url
     
-    render json: {status: 200, cover_image_url: img_url}
+    render json: {status: 200, cover_image_url: img_url, 
+      total_visit_count: user.total_visit_count, today_visit_count: user.today_visit_count}
   end
 
   # PATCH/PUT /user_covers/1
