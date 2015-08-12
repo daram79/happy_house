@@ -7,6 +7,7 @@ class Feed < ActiveRecord::Base
   has_many :alram, :as => :alram
   
   after_save :create_alram
+  after_destroy :delete_alram
   
   accepts_nested_attributes_for :feed_photos, reject_if: :feed_photos_attributes.blank?#, allow_destroy: true
   
@@ -51,6 +52,10 @@ class Feed < ActiveRecord::Base
     user_ids.each do |user_id|
       self.alram.create(user_id: user_id, send_user_id: self.user_id)
     end
+  end
+  
+  def delete_alram
+    self.alram.destroy_all
   end
   
 end
