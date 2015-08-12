@@ -6,7 +6,7 @@ class Feed < ActiveRecord::Base
   has_many :feed_tags, :dependent => :destroy
   has_many :alram, :as => :alram
   
-  after_save :create_alram
+  after_create :create_alram
   after_destroy :delete_alram
   
   accepts_nested_attributes_for :feed_photos, reject_if: :feed_photos_attributes.blank?#, allow_destroy: true
