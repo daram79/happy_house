@@ -87,6 +87,20 @@ class FeedsController < ApplicationController
     end
   end
   
+  def destroy_feeds
+    feed_ids = params[:feed_id].split(",")
+    Feed.destroy(feed_ids)
+    # hashData = params[:feed_id]
+    # feed_ids = []
+    # hashData.each do |k, v|
+      # feed_ids.push v
+    # end
+    # debugger
+#       
+    # @feeds = Feed.find(feed_ids)
+    render json: {status: 200}
+  end
+  
   def add_like
     current_user = User.find(params[:user_id])
     like = Like.where(feed_id: params[:id], user_id: current_user.id).first

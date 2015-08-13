@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   resources :feeds do
     collection do
       get   "search_tag"
+      delete  "destroy_feeds"
     end
     member do
       post "add_like"
