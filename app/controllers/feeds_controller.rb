@@ -10,9 +10,7 @@ class FeedsController < ApplicationController
   def index
     @current_user = User.find(params[:user_id])
     
-    # search_start_time = Time.now.utc - 1
-    search_start_time = (DateTime.now - 1).utc
-    @feeds = Feed.where("created_at > ?", search_start_time).order('updated_at desc').limit(100)
+    @feeds = Feed.all.order('updated_at desc').limit(100)
     @time_word = Hash.new
     @feeds.each do |feed|
       @time_word[feed.id] = time_ago_in_words(feed.created_at)
@@ -24,8 +22,7 @@ class FeedsController < ApplicationController
   def show
     @current_user = User.find(params[:user_id])
     # @item_photo = @feed.feed_photos[0]
-    search_start_time = (DateTime.now - 1).utc
-    @feed = Feed.where("id = ? and created_at > ?", params[:id], search_start_time).first
+    @feed = Feed.where("id = ?", params[:id]).first
     @item_photo = @feed.feed_photos[0] if @feed
     @time_word = time_ago_in_words(@feed.created_at)
   end
@@ -107,8 +104,7 @@ class FeedsController < ApplicationController
   
   def search_tag
     tag = params[:tag]
-    search_start_time = (DateTime.now - 1).utc
-    feed_ids = FeedTag.where("tag_name = ? and created_at > ?",tag, search_start_time).pluck(:feed_id)
+    feed_ids = FeedTag.where("tag_name = ?",tag).pluck(:feed_id)
     @feeds = Feed.where(id: feed_ids)
   end
   

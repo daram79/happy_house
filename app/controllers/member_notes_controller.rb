@@ -24,9 +24,8 @@ class MemberNotesController < ApplicationController
    #get user id
    user_id = params[:id]
    @current_user = User.find(user_id)
-   search_start_time = (DateTime.now - 1).utc
    
-   like_ids = Like.where("user_id = ? and created_at > ?", user_id, search_start_time).pluck(:feed_id)
+   like_ids = Like.where("user_id = ?", user_id).pluck(:feed_id)
    @member_notes = Feed.where(id: like_ids).order("updated_at desc")
    @time_word = Hash.new
    @member_notes.each do |member_note|

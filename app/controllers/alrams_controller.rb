@@ -6,14 +6,11 @@ class AlramsController < ApplicationController
   # GET /alrams
   # GET /alrams.json
   def index
-    search_start_time = (DateTime.now - 1).utc
-    @alrams = Alram.where("user_id = ? and created_at > ?", params[:id], search_start_time).order("updated_at desc")
+    @alrams = Alram.where("user_id = ?", params[:id]).order("updated_at desc")
     @time_word = Hash.new
     @alrams.each do |alram|
       @time_word[alram.id] = time_ago_in_words(alram.created_at)
     end
-    
-#     @alrams = Alram.where("user_id: params[:id] and "user_id: params[:id], "created_at > '#{search_start_time - 1}'").order("updated_at desc")
   end
 
   # GET /alrams/1

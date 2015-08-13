@@ -7,8 +7,7 @@ class PopularsController < ApplicationController
     # start_day = DateTime.now.prev_month
     # populars = Like.where("created_at > ?", start_day).group(:feed_id).order("count_feed_id desc").count(:feed_id)
     
-    search_start_time = (DateTime.now - 1).utc
-    populars = Like.where("created_at > ?", search_start_time).group(:feed_id).order("count_feed_id desc").count(:feed_id)
+    populars = Like.all.group(:feed_id).order("count_feed_id desc").count(:feed_id)
     
     feed_ids = populars.keys
     @populars = Feed.find(feed_ids) 
