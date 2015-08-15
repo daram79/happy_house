@@ -8,7 +8,10 @@ class FeedsController < ApplicationController
   # GET /feeds
   # GET /feeds.json
   def index
-    @current_user = User.find(params[:user_id])
+    if params[:user_id]
+      @current_user = User.find(params[:user_id])
+    end
+    
     
     @feeds = Feed.all.order('updated_at desc').limit(100)
     @time_word = Hash.new

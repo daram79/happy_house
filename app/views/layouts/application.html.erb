@@ -5,10 +5,14 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 </head>
-<body>
-
-<%= yield %>
+<body style="margin: 0;">
+<div style="width:100%; margin: 0 auto;">
+	<div style="width:100%; text-align: center; height: 50px; background-color: #F3D407; color: white; line-height: 50px; font-size: 20px; position: fixed;">Happy House</div>
+	<%= yield %>
+	<div style="width:100%; text-align: center; height: 20px; line-height: 20px; font-size: 14px; padding: 10px 0;">Tellus</div>
+</div>
 
 </body>
 </html>

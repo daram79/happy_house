@@ -38,7 +38,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # end
   # 日付(20131001.jpgみたいなファイル名)で保存する
   def filename
-    if @file
+    if super
       time = Time.now
       name = time.strftime('%Y%m%d%H%M%S') + '.jpg'
       name.downcase
