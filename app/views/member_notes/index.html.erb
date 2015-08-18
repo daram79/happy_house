@@ -1,6 +1,6 @@
 <div style="padding-top: 50px;">
 	<div style="display: center; width: 100%;">
-		<% @member_notes.each do |feed| %>
+		<% @member_notes.each_with_index do |feed, index| %>
 		<a name="<%= feed.id %>">
 			<div style="padding: 10px;">
 				<table>
@@ -20,8 +20,16 @@
 			</div>
 			<div style="margin-top: -4px;"><img style="width:100%" src="<%=feed.feed_photos[0].image.url%>" /></div>
 			<div style="padding: 20px 10px; margin-top:-4px;"><%= feed.content %></div>
-			<hr style="border-bottom: 0; color: gray; margin:0;" />
+			<% if index < @member_notes.size - 1 %>
+				<hr style="border-bottom: 0; color: gray; margin:0;" />
+			<% end %>
 		</a>
 		<% end %>
 	</div>
+	<div style="width:100%; margin-bottom: 10px">
+		<a href="/feeds" style="margin: auto; text-align:center; text-decoration: none; display:block; line-height:40px; height:40px; width:50%; background-color:#F3D407; border-radius:20px; -moz-border-radius:20px; -webkit-border-radius:20px; border:none; color:white; font-size:16px; font-weight:bold;">
+			다른사진 더보기
+		</a>
+	</div>
+	<hr style="border-bottom: 0; color: gray; margin:0;" />
 </div>
