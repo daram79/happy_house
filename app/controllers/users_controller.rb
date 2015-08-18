@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  include ActionView::Helpers::DateHelper
+  
   before_action :set_user, only: [:show, :edit, :update, :destroy, :get_user_data]
 
   # GET /users
@@ -94,6 +96,19 @@ class UsersController < ApplicationController
     if UserVisitCount.chk_visit_data(user_id, visit_user_id)
       UserVisitCount.create(user_id: user_id, visit_user_id: visit_user_id)
     end
+    render :json => {status: 200}
+  end
+  
+  def get_visitor_book
+    @visitor_books = VisitorBook.where(user_id: params[:id]).order('id desc').limit(100)
+    @time_word = Hash.new
+    @visitor_books.each do |visitor_book|
+      @time_word[visitor_book.id] = time_ago_in_words(visitor_book.created_at)
+    end
+  end
+  
+  def create_visitor_book
+    VisitorBook.create(user_id: params[:user_id], send_user_id: params[:send_user_id], content: params[:content])
     render :json => {status: 200}
   end
   

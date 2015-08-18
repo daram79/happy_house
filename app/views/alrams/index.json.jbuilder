@@ -12,6 +12,8 @@ json.array!(@alrams) do |alram|
   json.send_user_name alram.send_user.user_cover.name
   if alram.alram_type == "Feed"
     json.feed_photo alram.alram.feed_photos.first
+  elsif alram.alram_type == "VisitorBook"
+  	json.feed_photo nil
   else
     json.feed_photo alram.alram.feed.feed_photos.first
   end

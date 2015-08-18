@@ -4,12 +4,14 @@ Rails.application.routes.draw do
       put "set_registration_id"
       get "get_alram_on"
       get "get_user_data"
+      get "get_visitor_book"
     end
     collection do
       get "agreement"
       get "personal_information_policy"
       get "notice"
       get "createVisitCount"
+      post "create_visitor_book"
     end
   end
   

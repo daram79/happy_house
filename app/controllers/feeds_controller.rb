@@ -23,7 +23,10 @@ class FeedsController < ApplicationController
   # GET /feeds/1
   # GET /feeds/1.json
   def show
-    @current_user = User.find(params[:user_id])
+    if params[:user_id]
+      @current_user = User.find(params[:user_id])
+    end
+    
     # @item_photo = @feed.feed_photos[0]
     @feed = Feed.where("id = ?", params[:id]).first
     @item_photo = @feed.feed_photos[0] if @feed
@@ -43,10 +46,10 @@ class FeedsController < ApplicationController
   # POST /feeds.json
   def create
     content_type = params[:feed][:feed_photos_attributes]["0"][:image].content_type
-    unless "image".eql?(content_type.split('/')[0])
-      flash[:notice] = "지원하지 않는 형식의 사진입니다."
-      redirect_to action: "new"
-    else
+    # unless "image".eql?(content_type.split('/')[0])
+      # flash[:notice] = "지원하지 않는 형식의 사진입니다."
+      # redirect_to action: "new"
+    # else
       content = params[:feed][:content]
       tags = Feed.get_tag(content) #태그 작성후 DB에 넣고 태그값 리턴해줌
       html_content = Feed.make_html(content, tags)
@@ -63,7 +66,7 @@ class FeedsController < ApplicationController
           format.json { render json: @feed.errors, status: :unprocessable_entity }
         end
       end
-    end
+    # end
   end
 
   # PATCH/PUT /feeds/1
