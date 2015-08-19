@@ -87,7 +87,13 @@ class UsersController < ApplicationController
   
   def get_user_data
     render :json => {status: 200, alram_on: @user.alram_on, user_cover: @user.user_cover, 
-      total_visit_count: @user.total_visit_count, today_visit_count: @user.today_visit_count }
+      total_visit_count: @user.total_visit_count, today_visit_count: @user.today_visit_count, close_guide: @user.close_guide }
+  end
+  
+  def close_guide
+    user = User.find(params[:id])
+    user.update(close_guide: true)
+    render :json => {status: 200}
   end
   
   def createVisitCount

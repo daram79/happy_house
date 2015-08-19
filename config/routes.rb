@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       get "get_alram_on"
       get "get_user_data"
       get "get_visitor_book"
+      put "close_guide"
     end
     collection do
       get "agreement"
