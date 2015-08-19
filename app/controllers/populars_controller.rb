@@ -10,7 +10,9 @@ class PopularsController < ApplicationController
     populars = Like.all.group(:feed_id).order("count_feed_id desc").count(:feed_id)
     
     feed_ids = populars.keys
-    @populars = Feed.find(feed_ids) 
+    # @populars = Feed.order("created_at desc").find(feed_ids)
+    @populars = Feed.order(:updated_at).reverse_order.find(feed_ids)
+    
   end
 
   # GET /populars/1
