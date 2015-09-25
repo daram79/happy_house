@@ -1,0 +1,23 @@
+<h1>Listing play_answers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @play_answers.each do |play_answer| %>
+      <tr>
+        <td><%= link_to 'Show', play_answer %></td>
+        <td><%= link_to 'Edit', edit_play_answer_path(play_answer) %></td>
+        <td><%= link_to 'Destroy', play_answer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Play answer', new_play_answer_path %>

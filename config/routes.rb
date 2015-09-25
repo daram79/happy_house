@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :compatibilities
+  
+  resources :play_answers
+
+  resources :plays
+
   resources :users do
     member do
       put "set_registration_id"
