@@ -9,7 +9,25 @@
 	</div>
 </div>
 
-<div style="padding-top: 50px;">
+<% if request.env['HTTP_USER_AGENT'].downcase.match(/mobile/) %> 
+	<div style="padding: 10px 0; text-align: center;">
+	     <ins class="adsbygoogle"
+	     style="display:inline-block;width:320px;height:50px"
+	     data-ad-client="ca-pub-2840781308828288"
+	     data-ad-slot="9297516855"></ins>
+	</div>
+<% else %>
+	<div style="padding: 10px 0;">
+	<!-- 고급형 -->
+		<ins class="adsbygoogle"
+	    	style="display:block"
+	     	data-ad-client="ca-pub-2840781308828288"
+	     	data-ad-slot="7820783651"
+	     	data-ad-format="auto"></ins>
+   </div>
+<% end %>
+
+<div style="padding-top: 10px;">
 	<hr style="border-bottom: 0; color: gray; margin:0;" />
 	<div style="display: center; width: 100%;">
 		<% @feeds.each do |feed| %>
@@ -57,5 +75,10 @@
         url: 'http://happyhouse.me/plays/<%=@play.id%>' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
       }
     });
+</script>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
