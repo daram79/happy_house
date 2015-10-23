@@ -46,6 +46,23 @@
 </div>
 <% end %>
 
+<% if request.env['HTTP_USER_AGENT'].downcase.match(/mobile/) %> 
+	<div style="padding: 10px 0; text-align: center;">
+	     <ins class="adsbygoogle"
+	     style="display:inline-block;width:320px;height:50px"
+	     data-ad-client="ca-pub-2840781308828288"
+	     data-ad-slot="9297516855"></ins>
+	</div>
+<% else %>
+	<div style="padding: 10px 0;">
+	<!-- 고급형 -->
+		<ins class="adsbygoogle"
+	    	style="display:block"
+	     	data-ad-client="ca-pub-2840781308828288"
+	     	data-ad-slot="7820783651"
+	     	data-ad-format="auto"></ins>
+   </div>
+<% end %>
 <div id="MobileadAreaDiv"></div>
 
 <div style="padding-top: 10px;">
@@ -125,7 +142,14 @@
       }
     });
 </script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
+
+<!--다음광고-->
+<!-- 	
 <script type="text/javascript">
 	var daum_adam_vars = {
 		client : 'DAN-skmswp48wmd3',
@@ -133,4 +157,4 @@
         bannerDivId : 'MobileadAreaDiv' // position : 'MIDDLE' 인 경우, 광고를 삽입할 DIV 태그의 ID 값.
  	};
 </script>
-<script type="text/javascript" src="http://m1.daumcdn.net/adtc/js/mobilead.js"></script>
+<script type="text/javascript" src="http://m1.daumcdn.net/adtc/js/mobilead.js"></script> -->
