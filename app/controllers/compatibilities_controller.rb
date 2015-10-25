@@ -18,7 +18,7 @@ class CompatibilitiesController < ApplicationController
   def new
     # @compatibility = Compatibility.new
     @compatibility = Play.new
-    @feeds = Feed.all.order('updated_at desc').limit(100)
+    @feeds = Feed.all.order('updated_at desc').limit(20)
     @time_word = Hash.new
     @feeds.each do |feed|
       @time_word[feed.id] = time_ago_in_words(feed.created_at)
