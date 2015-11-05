@@ -34,7 +34,10 @@
 	  		<td style="text-align: left; padding-top: 10px;"><%= f.text_field :animal_name %></td>
 	  	</tr>
 	  	<tr>
-	  		<td colspan="2" style="padding-top: 10px;"><%= f.submit "궁합 보기" %></td>
+	  		<td colspan="2" style="padding-top: 10px;">
+	  			<!-- <%= f.submit "궁합 보기" %> -->
+	  			<input type="button" id="go" value="궁합 보기" />
+	  		</td>
 	  	</tr>
 	  </table>
 	  <div style="text-align: right; margin-top: 10px;">
@@ -122,6 +125,17 @@
 	    }
 	    return "";
 	}
+	
+	$('#go').click(function(){
+		var owner_name = $.trim( $("#play_owner_name").val() ); 
+		var animal_name = $.trim( $("#play_animal_name").val()); 
+	  	if ( owner_name == "" || animal_name == "" ) {
+	  		alert("본인의 이름과 반려동물의 이름을 모두 입력해주세요.");
+	  		return false;
+	  	} else {
+	  		$("#new_play").submit();
+	  	}
+	})
 </script>
 <script>
     // 사용할 앱의 JavaScript 키를 설정해 주세요.

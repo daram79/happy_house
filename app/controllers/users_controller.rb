@@ -75,8 +75,14 @@ class UsersController < ApplicationController
   end
   
   def set_registration_id
-    @user = User.find(params[:id])
-    @user.update(registration_id: params[:registration_id])
+    # @user = User.find(params[:id])
+    # @user.update(registration_id: params[:registration_id])
+    user_id = params[:id]
+    regi_id = params[:registration_id]
+    registrations = Registration.where(user_id: params[:id], registration_id: params[:registration_id])
+    if user_id != "" && regi_id != "" && registrations.blank?
+        Registration.create(user_id: params[:id], registration_id: params[:registration_id])
+    end
     render :json => {status: 200}
   end
   

@@ -1,7 +1,10 @@
 <div style="padding-top: 60px; padding-left: 10px; padding-right: 10px;">
 	<div style="text-align: center; border:1px #F3D407 solid; padding: 10px; border-radius:5px; -moz-border-radius:3px; -webkit-border-radius:3px; font-size: 12px; color: black;">
 		<%= raw hbr @play.answer %>
-		<div style="padding-top: 15px; padding-bottom: 10px"><input type="button" value="궁합 다시보기" /></div>	
+		<div style="padding-top: 15px; padding-bottom: 10px">
+			<%= button_to '궁합 다시보기', new_compatibility_path, :method => :get %>
+			<!-- <input type="button" value="궁합 다시보기" /> -->
+		</div>	
 	</div>
 	
 	<div style="text-align: right; margin-top: 10px;">

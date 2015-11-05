@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :send_user_alrams, :foreign_key => "send_user_id", :class_name => "Alram"
   has_many :comments
   has_many :alram, :as => :alram
+  has_many :registrations
   
   after_create :create_alram
   
