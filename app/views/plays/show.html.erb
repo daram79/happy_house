@@ -1,10 +1,24 @@
+<div>
+	<div id="loading" style="transform: scale(0.5) rotate(135deg);">
+		<div class="bar1"></div>
+		<div class="bar2"></div>
+		<div class="bar3"></div>
+		<div class="bar4"></div>
+		<div class="bar5"></div>
+		<div class="bar6"></div>
+		<div class="bar7"></div>
+		<div class="bar8"></div>
+	</div>
+</div>
+
 <div style="padding-top: 60px; padding-left: 10px; padding-right: 10px;">
-	<div style="text-align: center; border:1px #F3D407 solid; padding: 10px; border-radius:5px; -moz-border-radius:3px; -webkit-border-radius:3px; font-size: 12px; color: black;">
-		<%= raw hbr @play.answer %>
-		<div style="padding-top: 15px; padding-bottom: 10px">
-			<%= button_to '궁합 다시보기', new_compatibility_path, :method => :get %>
-			<!-- <input type="button" value="궁합 다시보기" /> -->
-		</div>	
+	<div style="text-align: left; border:1px #F3D407 solid; padding: 10px; border-radius:5px; -moz-border-radius:3px; -webkit-border-radius:3px; font-size: 15px; color: black; line-height: 150%;">
+			<p style="text-align: center;font-size: 18px; font-weight: bold; color: #F3D407; line-height: 100%">궁합결과</p>
+			<div id="result" style="display: none;"><%= raw hbr @play.answer %></div>
+			<div id="btn_container" style="padding-top: 15px; padding-bottom: 10px; text-align: center; margin-top:60px;">
+				<%= button_to '궁합 다시보기', new_compatibility_path, :method => :get, :style =>"font-size: 14px; padding: 5px 10px;" %>
+				<!-- <input type="button" value="궁합 다시보기" /> -->
+			</div>	
 	</div>
 	
 	<div style="text-align: right; margin-top: 10px;">
@@ -87,3 +101,104 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
+
+<style>
+/* general styling */
+  
+
+/* position the bars and balls correctly (rotate them and translate them outward)*/
+.bar1 {
+  -moz-transform:rotate(0deg) translate(0, -40px);
+  -webkit-transform:rotate(0deg) translate(0, -40px);opacity:0.12;
+}
+.bar2 {
+  -moz-transform:rotate(45deg) translate(0, -40px);
+  -webkit-transform:rotate(45deg) translate(0, -40px);opacity:0.25;
+}
+.bar3 {
+  -moz-transform:rotate(90deg) translate(0, -40px);
+  -webkit-transform:rotate(90deg) translate(0, -40px);opacity:0.37;
+}
+.bar4 {
+  -moz-transform:rotate(135deg) translate(0, -40px);
+  -webkit-transform:rotate(135deg) translate(0, -40px);opacity:0.50;
+}
+.bar5 {
+  -moz-transform:rotate(180deg) translate(0, -40px);
+  -webkit-transform:rotate(180deg) translate(0, -40px);opacity:0.62;
+}
+.bar6 {
+  -moz-transform:rotate(225deg) translate(0, -40px);
+  -webkit-transform:rotate(225deg) translate(0, -40px);opacity:0.75;
+}
+.bar7 {
+  -moz-transform:rotate(270deg) translate(0, -40px);
+  -webkit-transform:rotate(270deg) translate(0, -40px);opacity:0.87;
+}
+.bar8 {
+  -moz-transform:rotate(315deg) translate(0, -40px);
+  -webkit-transform:rotate(315deg) translate(0, -40px);opacity:1;
+}
+
+/* set up the three ball spinners */
+#loading {
+  /*position:relative;*/
+  position:absolute;
+  
+  width:100px;
+  height:100px;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: 100px;
+  /*margin:25px;*/
+  -moz-border-radius:100px;
+  -webkit-border-radius:100px;
+  float:left;
+  -moz-transform:scale(0.5);
+  -webkit-transform:scale(0.5);
+
+  -webkit-animation-name: rotateThis;
+  -webkit-animation-duration:2s;
+  -webkit-animation-iteration-count:infinite;
+  -webkit-animation-timing-function:linear;
+}
+#loading div {
+  width:20px;
+  height:20px;
+  background:#000;
+  -moz-border-radius:40px;
+  -webkit-border-radius:40px;
+  position:absolute;
+  left:40px;
+  top:40px;
+}
+/* add a shadow to the first */
+#loading div {
+  -moz-box-shadow:black 0 0 4px;
+  -webkit-box-shadow:black 0 0 4px;
+}
+</style>
+<script>
+  var count = 0;
+  function rotate() {
+    var loading = document.getElementById('loading');
+    loading.style.MozTransform = 'scale(0.5) rotate('+count+'deg)';
+    loading.style.WebkitTransform = 'scale(0.5) rotate('+count+'deg)';
+    if (count==360) { count = 0 }
+    count+=45;
+    window.setTimeout(rotate, 100);
+  }
+  
+  window.setTimeout(rotate, 100);
+  
+  $(document).ready(function() {
+  	setTimeout(function() {
+		$("#loading").remove();
+		$("#result").show();
+		$("#btn_container").css({'margin-top':'0px'});
+		
+	}, 1000);
+  });
+  
+  
+</script>

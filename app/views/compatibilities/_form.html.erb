@@ -1,42 +1,31 @@
 <%= form_for(@compatibility) do |f| %>
 <div style="padding-top: 50px; text-align: center">
-  <% if @compatibility.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@compatibility.errors.count, "error") %> prohibited this compatibility from being saved:</h2>
-
-      <ul>
-      <% @compatibility.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
   <div style="padding: 0 10px;">
-	  <table style="margin-top: 5px;width: 100%; padding: 20px; border:1px #F3D407 solid; border-radius:5px; -moz-border-radius:3px; -webkit-border-radius:3px; font-size: 12px;">
+	  <table style="margin-top: 5px;width: 100%; padding: 20px; border:1px #F3D407 solid; border-radius:5px; -moz-border-radius:3px; -webkit-border-radius:3px; font-size: 16px;">
 	  	<tr>
 	  		<td colspan="2" style="">
-	  			<span style="font-size:26px;">반려동물 궁합보기</span>
-	  			<span style="margin-top:10px; font-size:12px; display: block;">
+	  			<span style="font-size: 20px; font-weight: bold; line-height: 100%; color: #F3D407;">반려동물 궁합보기</span>
+	  			<span style="margin-top:10px; font-size:15px; display: block; line-height: 150%;">
 	  				반려동물과 본인의 이름을 입력하면,<br />
 	  				전생을 통해 서로의 궁합을 알려드립니다.<br />
 	  			</span>
-	  			<span style="font-size:12px; color: gray;">(재미 위주로 봐주세요~!^^)</span>
+	  			<span style="font-size:14px; color: gray; line-height: 150%">(재미 위주로 봐주세요~!^^)</span>
 	  			
 	  		</td>
 	  	</tr>
 	  	<tr>
-	  		<td style="text-align: right; padding-top: 10px;">본인이름: </td>
+	  		<td style="text-align: right; padding-top: 10px; font-size: 15px;">본인이름: </td>
 	  		<%= f.hidden_field :uniq_key %>
 	  		<td style="text-align: left; padding-top: 10px;"><%= f.text_field :owner_name %></td>
 	  	</tr>
 	  	<tr>
-	  		<td style="text-align: right; padding-top: 10px;">반려동물 이름:</td>
+	  		<td style="text-align: right; padding-top: 10px; font-size: 15px;">반려동물 이름:</td>
 	  		<td style="text-align: left; padding-top: 10px;"><%= f.text_field :animal_name %></td>
 	  	</tr>
 	  	<tr>
 	  		<td colspan="2" style="padding-top: 10px;">
 	  			<!-- <%= f.submit "궁합 보기" %> -->
-	  			<input type="button" id="go" value="궁합 보기" />
+	  			<input type="button" id="go" value="궁합 보기" style="font-size: 14px; padding: 5px 10px;" />
 	  		</td>
 	  	</tr>
 	  </table>
@@ -172,3 +161,16 @@
  	};
 </script>
 <script type="text/javascript" src="http://m1.daumcdn.net/adtc/js/mobilead.js"></script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
