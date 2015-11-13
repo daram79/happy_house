@@ -16,7 +16,8 @@
 			<p style="text-align: center;font-size: 18px; font-weight: bold; color: #F3D407; line-height: 100%">궁합결과</p>
 			<div id="result" style="display: none;"><%= raw hbr @play.answer %></div>
 			<div id="btn_container" style="padding-top: 15px; padding-bottom: 10px; text-align: center; margin-top:60px;">
-				<%= button_to '궁합 다시보기', new_compatibility_path, :method => :get, :style =>"font-size: 14px; padding: 5px 10px;" %>
+				<div id="txt_loading" style="color: gray;">전생 데이터 수집중...</div>
+				<%= button_to '궁합 다시보기', new_compatibility_path, :method => :get, :style =>"font-size: 14px; padding: 5px 10px; display:none", :id => "btn_sub" %>
 				<!-- <input type="button" value="궁합 다시보기" /> -->
 			</div>	
 	</div>
@@ -194,10 +195,12 @@
   $(document).ready(function() {
   	setTimeout(function() {
 		$("#loading").remove();
+		$("#txt_loading").remove();
+		$("#btn_sub").show();
 		$("#result").show();
 		$("#btn_container").css({'margin-top':'0px'});
 		
-	}, 1000);
+	}, 1500);
   });
   
   
