@@ -31,18 +31,12 @@ class PlaysController < ApplicationController
   # POST /plays
   # POST /plays.json
   def create
-    # @play = Play.new(play_params)
-    #우선 검색
     @play = Play.where(uniq_key:params[:play][:uniq_key], owner_name: params[:play][:owner_name], animal_name:params[:play][:animal_name]).first
     unless @play
-      #todo: 답변 선정
-      
       play_answer = PlayAnswer.offset( rand(PlayAnswer.count) ).first 
-      # play_answer = PlayAnswer.find(1)
       answer = play_answer.answer.gsub(/%%|&&/, "%%" => params[:play][:owner_name], "&&" => params[:play][:animal_name])
       @play = Play.new(play_params.merge(play_answer_id: 1, answer: answer))
     end
-
     respond_to do |format|
       if @play.save
         format.html { redirect_to @play, notice: 'Play was successfully created.' }

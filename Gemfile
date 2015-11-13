@@ -66,3 +66,4 @@ gem 'unicorn'
 
 gem 'execjs'
 gem 'therubyracer'
+gem "font-awesome-rails"

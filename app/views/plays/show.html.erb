@@ -21,11 +21,18 @@
 				<!-- <input type="button" value="궁합 다시보기" /> -->
 			</div>	
 	</div>
-	
-	<div style="text-align: right; margin-top: 10px;">
+	<% if session[:user_agent] == "mobile" %>
+	<div id="div_katalk_share" style="float: right; margin-top: 10px; display: none;">
 		<a id="kakao-link-btn" href="javascript:;">
 	    	<img style="width: 50px;" src="http://dn.api1.kage.kakao.co.kr/14/dn/btqa9B90G1b/GESkkYjKCwJdYOkLvIBKZ0/o.jpg" />
 	    </a>
+	</div>
+	<% end %>
+	
+	<div id="div_url_copy" style="float:right; background-color: gray;margin-top: 12px; margin-right: 10px; padding: 3px;border:1px gray solid; border-radius:5px; -moz-border-radius:3px; -webkit-border-radius:3px;  display: none;">
+		<a onclick="copy_url();" href="#">
+			<i class="fa fa-share fa-3x" style="color: white;"></i>
+		</a>
 	</div>
 </div>
 
@@ -78,23 +85,33 @@
 
 
 <script>
-    // 사용할 앱의 JavaScript 키를 설정해 주세요.
-    Kakao.init('db06d124c2ef3f283fedea4c9ab19959');
-
-    // 카카오톡 링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
-    Kakao.Link.createTalkLinkButton({
-      container: '#kakao-link-btn',
-      label: '친구 반려동물 궁합결과 보기',
-      image: {
-        src: 'https://lh3.googleusercontent.com/zPqyBVjBcO4WKiNChwOY2Rn_1QFwMISe9Hf_F80lJ-XLRTcC7NbzDFSKImrsOKV5sg=w300-rw',
-        width: '300',
-        height: '300'
-      },
-      webButton: {
-        text: '반려동물과 친구의 궁합은??',
-        url: 'http://happyhouse.me/plays/<%=@play.id%>' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
-      }
-    });
+	// var result_val = ""; 
+    // // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    // Kakao.init('db06d124c2ef3f283fedea4c9ab19959');
+// 
+    // // 카카오톡 링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+    // Kakao.Link.createTalkLinkButton({
+      // container: '#kakao-link-btn',
+      // label: "[Happy House]\n\n" + result_val,
+      // webButton: {
+        // text: '궁합결과 구경가기',
+        // url: 'http://happyhouse.me/plays/<%=@play.id%>' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
+      // }
+    // });
+    
+    // Kakao.Link.createTalkLinkButton({
+      // container: '#kakao-link-btn',
+      // label: '친구 반려동물 궁합결과 보기',
+      // image: {
+        // src: 'https://lh3.googleusercontent.com/zPqyBVjBcO4WKiNChwOY2Rn_1QFwMISe9Hf_F80lJ-XLRTcC7NbzDFSKImrsOKV5sg=w300-rw',
+        // width: '300',
+        // height: '300'
+      // },
+      // webButton: {
+        // text: '반려동물과 친구의 궁합은??',
+        // url: 'http://happyhouse.me/plays/<%=@play.id%>' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
+      // }
+    // });
 </script>
 
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -180,6 +197,23 @@
 }
 </style>
 <script>
+<% if session[:user_agent] == "mobile" %>
+	// var result_val = $("#result").text().split("n")[0] + "." + $("#result").text().split(".")[1] + "." + $("#result").text().split(".")[2] + ".";
+	var result_val = "<%= @play.answer.split("\n")[0] + " 그런데..." %>";
+	  
+    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('db06d124c2ef3f283fedea4c9ab19959');
+
+    // 카카오톡 링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+    Kakao.Link.createTalkLinkButton({
+      container: '#kakao-link-btn',
+      label: "[Happy House]\n\n" + result_val,
+      webButton: {
+        text: '친구 궁합 계속보기',
+        url: 'http://happyhouse.me/plays/<%=@play.id%>' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
+      }
+    });
+<% end %>
   var count = 0;
   function rotate() {
     var loading = document.getElementById('loading');
@@ -198,10 +232,19 @@
 		$("#txt_loading").remove();
 		$("#btn_sub").show();
 		$("#result").show();
+		$("#div_katalk_share").show();
+		$("#div_url_copy").show();
+		
 		$("#btn_container").css({'margin-top':'0px'});
 		
 	}, 1500);
   });
   
-  
+  function copy_url(){
+  	<% if session[:user_agent] == "mobile" %>
+  		prompt('주소를 길게 눌러서 복사하세요.', window.location);
+  	<% else %>
+  		prompt('주소를 복사해서 이용하세요.', window.location);
+  	<% end %>
+  }
 </script>

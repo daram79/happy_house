@@ -24,9 +24,11 @@
 <% if params[:type] == "app" %>
 	<div style="width:100%; margin: 0 auto;">
 <% elsif request.env['HTTP_USER_AGENT'].downcase.match(/mobile/) %>
+	<% session[:user_agent] = "mobile" %>
 	<div style="width:100%; margin: 0 auto;">
 		<div style="width:100%; height: 50px; background-color: #F3D407; color: white; line-height: 50px; position: fixed;">
 <% else %>
+	<% session[:user_agent] = "pc" %>
 	<div style="width:500px; margin: 0 auto;">
 		<div style="width:500px; height: 50px; background-color: #F3D407; color: white; line-height: 50px; position: fixed;">
 <% end %>

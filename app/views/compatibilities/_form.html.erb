@@ -133,14 +133,15 @@
     // 카카오톡 링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
     Kakao.Link.createTalkLinkButton({
       container: '#kakao-link-btn',
-      label: '반려동물과 나의 궁합이 궁금하신가요??',
-      image: {
-        src: 'https://lh3.googleusercontent.com/zPqyBVjBcO4WKiNChwOY2Rn_1QFwMISe9Hf_F80lJ-XLRTcC7NbzDFSKImrsOKV5sg=w300-rw',
-        width: '300',
-        height: '300'
-      },
+      // label: '반려동물과 나의 궁합이 궁금하신가요??',
+      label: "[Happy House]\n\n반려동물과 나의 궁합점수는?!\n나와 반려견의 전생은 과연 무엇이었을까?\n가끔은 내가 반려견의 집사는 아닌지, 반려견이 나를 무시하고 있는 것 같은데 도대체 왜 그런지 궁금할 때가 있지 않으신가요?\n재미로 보는 나와 반려견의 전생을 통해, 둘 사이의 궁합을 알아보세요!",
+      // image: {
+        // src: 'https://lh3.googleusercontent.com/zPqyBVjBcO4WKiNChwOY2Rn_1QFwMISe9Hf_F80lJ-XLRTcC7NbzDFSKImrsOKV5sg=w300-rw',
+        // width: '300',
+        // height: '300'
+      // },
       webButton: {
-        text: '내 반려동물과 나와의 궁합은??',
+        text: '지금 궁합보러 가기!!',
         url: 'http://happyhouse.me/compatibilities/new' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
       }
     });
