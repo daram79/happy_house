@@ -21,40 +21,43 @@
 				<!-- <input type="button" value="궁합 다시보기" /> -->
 			</div>	
 	</div>
-	<% if session[:user_agent] == "mobile" %>
 	<div id="div_katalk_share" style="float: right; margin-top: 10px; display: none;">
-		<a id="kakao-link-btn" href="javascript:;">
+		<a id="kakao-link-btn" href="javascript:sendLink()">
 	    	<img style="width: 50px;" src="http://dn.api1.kage.kakao.co.kr/14/dn/btqa9B90G1b/GESkkYjKCwJdYOkLvIBKZ0/o.jpg" />
 	    </a>
 	</div>
-	<% end %>
-	
+		
 	<div id="div_url_copy" style="float:right; background-color: gray;margin-top: 12px; margin-right: 10px; padding: 3px;border:1px gray solid; border-radius:5px; -moz-border-radius:3px; -webkit-border-radius:3px;  display: none;">
-		<a onclick="copy_url();" href="#">
-			<i class="fa fa-share fa-3x" style="color: white;"></i>
-		</a>
+			<a onclick="copy_url();" href="#">
+				<i class="fa fa-share fa-3x" style="color: white;"></i>
+			</a>
 	</div>
+	<!-- 이벤트 -->
+	<!-- <div id="btn_lottery" style="padding: 0 10px; height:46px; line-height: 46px; float: right; background-color: #00592D; margin-top: 12px; margin-right: 10px; border:1px white solid; border-radius:5px; -moz-border-radius:3px; -webkit-border-radius:3px;  display: none;">
+		<a href="javascript:go_app();" style="color: white; font-size: 18px; text-decoration: none;">스타벅스 기프티콘 받기</a>
+	</div> -->
 </div>
 
+<!-- 구글 광고 -->
 <% if request.env['HTTP_USER_AGENT'].downcase.match(/mobile/) %> 
-	<div style="padding: 10px 0; text-align: center;">
+	<!-- <div style="padding: 10px 0; text-align: center;">
 	     <ins class="adsbygoogle"
 	     style="display:inline-block;width:320px;height:50px"
 	     data-ad-client="ca-pub-2840781308828288"
 	     data-ad-slot="9297516855"></ins>
-	</div>
+	</div> -->
 <% else %>
-	<div style="padding: 10px 0;">
-	<!-- 고급형 -->
+<!-- 고급형 -->
+	<!-- <div style="padding: 10px 0;">
 		<ins class="adsbygoogle"
 	    	style="display:block"
 	     	data-ad-client="ca-pub-2840781308828288"
 	     	data-ad-slot="7820783651"
 	     	data-ad-format="auto"></ins>
-   </div>
+   </div> -->
 <% end %>
 
-<div style="padding-top: 10px;">
+<div style="padding-top: 10px; clear: right;">
 	<hr style="border-bottom: 0; color: gray; margin:0;" />
 	<div style="display: center; width: 100%;">
 		<% @feeds.each do |feed| %>
@@ -83,41 +86,11 @@
 	</div>
 </div>
 
-
-<script>
-	// var result_val = ""; 
-    // // 사용할 앱의 JavaScript 키를 설정해 주세요.
-    // Kakao.init('db06d124c2ef3f283fedea4c9ab19959');
-// 
-    // // 카카오톡 링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
-    // Kakao.Link.createTalkLinkButton({
-      // container: '#kakao-link-btn',
-      // label: "[Happy House]\n\n" + result_val,
-      // webButton: {
-        // text: '궁합결과 구경가기',
-        // url: 'http://happyhouse.me/plays/<%=@play.id%>' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
-      // }
-    // });
-    
-    // Kakao.Link.createTalkLinkButton({
-      // container: '#kakao-link-btn',
-      // label: '친구 반려동물 궁합결과 보기',
-      // image: {
-        // src: 'https://lh3.googleusercontent.com/zPqyBVjBcO4WKiNChwOY2Rn_1QFwMISe9Hf_F80lJ-XLRTcC7NbzDFSKImrsOKV5sg=w300-rw',
-        // width: '300',
-        // height: '300'
-      // },
-      // webButton: {
-        // text: '반려동물과 친구의 궁합은??',
-        // url: 'http://happyhouse.me/plays/<%=@play.id%>' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
-      // }
-    // });
-</script>
-
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 구글 광고 -->
+<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+</script> -->
 
 
 <style>
@@ -197,23 +170,28 @@
 }
 </style>
 <script>
-<% if session[:user_agent] == "mobile" %>
-	// var result_val = $("#result").text().split("n")[0] + "." + $("#result").text().split(".")[1] + "." + $("#result").text().split(".")[2] + ".";
 	var result_val = "<%= @play.answer.split("\n")[0] + " 그런데..." %>";
 	  
     // 사용할 앱의 JavaScript 키를 설정해 주세요.
     Kakao.init('db06d124c2ef3f283fedea4c9ab19959');
-
-    // 카카오톡 링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
-    Kakao.Link.createTalkLinkButton({
-      container: '#kakao-link-btn',
-      label: "[Happy House]\n\n" + result_val,
-      webButton: {
-        text: '친구 궁합 계속보기',
-        url: 'http://happyhouse.me/plays/<%=@play.id%>' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
-      }
-    });
-<% end %>
+    function sendLink() {
+    	$.ajax({
+		   url: "/logs/create_log",
+		   dataType:'json',
+		   data: {cookie: getCookie(), f_log: "<%=LOG_KAKAO%>", s_log: "<%=LOG_KAKAO_PLAY_SHARE_PAST_LIFE%>"},
+		   type:'POST',
+		   success: function(data){
+			   	Kakao.Link.sendTalkLink({
+			        label: "[Happy House]\n\n" + result_val,
+				    webButton: {
+				    	text: '친구 궁합 계속보기',
+        				url: 'http://happyhouse.me/plays/<%=@play.id%>' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
+					}
+			    });
+		   }
+		});
+    }
+    
   var count = 0;
   function rotate() {
     var loading = document.getElementById('loading');
@@ -234,6 +212,8 @@
 		$("#result").show();
 		$("#div_katalk_share").show();
 		$("#div_url_copy").show();
+		$("#btn_lottery").show();
+		
 		
 		$("#btn_container").css({'margin-top':'0px'});
 		
@@ -247,4 +227,41 @@
   		prompt('주소를 복사해서 이용하세요.', window.location);
   	<% end %>
   }
+  
+  function go_lottery_page() {
+  	$.ajax({
+		   url: "/logs/create_log",
+		   dataType:'json',
+		   data: {f_log: "<%=LOG_STAR_BUCKS%>", s_log: "<%= LOG_STAR_BUCKS_EVENT_PAGE %>"},
+		   type:'POST',
+		   success: function(data){
+		   	if("<%=session[:user_agent]%>" == "android") {
+				window.location = "/lotteries/new"
+			} else {
+				alert("죄송합니다. 현재 이벤트는 안드로이드 에서만 가능합니다.");
+			}
+		   }
+		});
+  }
+  
+  function go_app(){
+		$.ajax({
+		   url: "/logs/create_log",
+		   dataType:'json',
+		   data: {f_log: "<%=LOG_STAR_BUCKS%>", s_log: "<%=LOG_STAR_BUCKS_EVENT_APP_DOWN_LOAD%>"},
+		   type:'POST',
+		   success: function(data){
+		   	if("<%=session[:user_agent]%>" == "android") {
+		   		if (confirm("이 이벤트는 앱에서 \n참여 하실 수 있습니다.\n\n앱 다운로드 페이지로 이동 하시겠습니까?") == true){    //확인
+				    window.location = "market://details?id=me.tellus.happyhouse";
+				}else{   //취소
+				    return;
+				}
+			} else {
+				alert("죄송합니다. 현재 안드로이드 에서만 가능합니다.");
+			}
+		   }
+		});
+  }
+  
 </script>

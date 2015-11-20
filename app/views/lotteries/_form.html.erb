@@ -1,0 +1,83 @@
+<% if session[:user_agent] == "android" %>
+	<div style="padding-top: 60px; text-align: center">
+	  <div style="margin-top: 10px">
+	    핸드폰 번호: <input id="tel_h_no" type="text" value="010" style="width: 40px; text-align: center"> - 
+	    				<input id="tel_b_no" type="text" style="width: 40px; text-align: center" value=""> - 
+	    				<input id="tel_f_no" type="text" style="width: 40px; text-align: center" value="">
+	  </div>
+	  <div style="margin-top: 20px">
+	  	<span>전화번호는 이벤트 중복 지원방지를 위한 수단으로만 사용됩니다.</span><br />
+	  	<span>이벤트 당첨시 입력한 전화번호로 기프티콘을 보내드리오니<br /> 정확한 전화번호를 입력해 주시기 바랍니다.</span>
+	  </div>
+	  <div style="margin-top: 10px;">
+	  	<input onclick="create_lottery();" type="button" value="이벤트 참여">
+	  </div>
+	</div>
+	
+	<div>
+		<div id="lottery_result" style="height:150px; text-align:center; margin: 15px 15px 0 10px; border:1px #F3D407 solid; padding: 10px; border-radius:5px; -moz-border-radius:3px; -webkit-border-radius:3px; font-size: 15px; color: black; display: none;">
+			<div id="lottery_result1" style="margin-top: 35px;"></div>
+			<div id="lottery_result2" style="margin-top: 10px;"></div>
+			<a id="btn_app_download" href="javascript:go_app();" style="border:1px white solid; border-radius:5px; -moz-border-radius:3px; -webkit-border-radius:3px; text-decoration: none; background-color: #F3D407; display: inline-block; margin-top: 10px; padding: 4px;">
+				<span style="color: white;">앱으로 한번더 도전!!!</span>
+			</a>
+		</div>
+	</div>
+<% else %>
+	<div style="padding-top: 60px; text-align: center">
+		<div style="height:150px; text-align:center; margin: 15px 15px 0 10px; border:1px #F3D407 solid; padding: 10px; border-radius:5px; -moz-border-radius:3px; -webkit-border-radius:3px; font-size: 15px; color: black;">
+				<div id="lottery_result1" style="margin-top: 45px;">죄송합니다.</div>
+			<div id="lottery_result2" style="margin-top: 10px;">현재 이벤트는 안드로이드 유저를 대상으로 하고 있습니다.</div>
+		</div>
+	</div>
+<% end %>
+
+<script>
+	function create_lottery(){
+		$("#lottery_result").hide();
+		var tel_no = $("#tel_h_no").val() + $("#tel_b_no").val() + $("#tel_f_no").val();
+		$.ajax({
+		   url: "/lotteries/create_lottery",
+		   dataType:'json',
+		   data: {tel_no: tel_no, type: "web"},
+		   type:'POST',
+		   success: function(data){
+		   	flg = data.flg
+		   	lottery = data.lottery
+		   	$("#lottery_result").show();
+		   	if(flg){
+		   		if(lottery.is_win){
+		   			$("#lottery_result1").text("축 당첨!!!");
+		   			$("#lottery_result2").text("입력하신 번호로 기프티콘을 보내드리겠습니다.");
+		   			$("#btn_app_download").hide();
+		   		} else {
+		   			$("#lottery_result1").text("아쉽네요.");
+		   			$("#lottery_result2").text("앱으로 한번더 참여할 수 있습니다.");
+		   		}
+		   	} else {
+		   		$("#lottery_result1").text("이미 참여했습니다.");
+		   		$("#lottery_result2").text("앱으로 한번더 참여할 수 있습니다.");
+		   	}
+		   	
+			   	
+		   }
+		});
+	}
+	
+	function go_app(){
+		$.ajax({
+		   url: "/logs/create_log",
+		   dataType:'json',
+		   data: {f_log: "<%=LOG_STAR_BUCKS%>", s_log: "<%=LOG_STAR_BUCKS_EVENT_APP_DOWN_LOAD%>"},
+		   type:'POST',
+		   success: function(data){
+		   	if("<%=session[:user_agent]%>" == "android") {
+				window.location = "market://details?id=me.tellus.happyhouse";
+			} else {
+				alert("죄송합니다. 현재 안드로이드 에서만 가능합니다.");
+			}
+		   }
+		});
+	}
+	
+</script>

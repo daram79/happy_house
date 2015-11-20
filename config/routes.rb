@@ -1,4 +1,19 @@
 Rails.application.routes.draw do
+  resources :lotteries do
+    collection do
+      post "create_lottery"
+      put "update_lottery_tel_no"
+      get "check_event"
+      get "get_lottery_data"
+    end
+  end
+
+  resources :logs do
+    collection do
+      post "create_log"
+    end
+  end
+
   resources :compatibilities
   
   resources :play_answers

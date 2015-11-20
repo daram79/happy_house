@@ -30,8 +30,8 @@
 	  	</tr>
 	  </table>
 	  <div style="text-align: right; margin-top: 10px;">
-		<a id="kakao-link-btn" href="javascript:;">
-	    	<img style="width: 50px;" src="http://dn.api1.kage.kakao.co.kr/14/dn/btqa9B90G1b/GESkkYjKCwJdYOkLvIBKZ0/o.jpg" />
+	    <a id="kakao-link-btn" href="javascript:sendLink()">
+	      <img style="width: 50px;" src="http://dn.api1.kage.kakao.co.kr/14/dn/btqa9B90G1b/GESkkYjKCwJdYOkLvIBKZ0/o.jpg" />
 	    </a>
 	  </div>
   </div>
@@ -39,23 +39,22 @@
 <% end %>
 
 <% if request.env['HTTP_USER_AGENT'].downcase.match(/mobile/) %> 
-	<div style="padding: 10px 0; text-align: center;">
+	<!-- <div style="padding: 10px 0; text-align: center;">
 	     <ins class="adsbygoogle"
 	     style="display:inline-block;width:320px;height:50px"
 	     data-ad-client="ca-pub-2840781308828288"
 	     data-ad-slot="9297516855"></ins>
-	</div>
+	</div> -->
 <% else %>
-	<div style="padding: 10px 0;">
-	<!-- 고급형 -->
+<!-- 고급형 -->
+	<!-- <div style="padding: 10px 0;">
 		<ins class="adsbygoogle"
 	    	style="display:block"
 	     	data-ad-client="ca-pub-2840781308828288"
 	     	data-ad-slot="7820783651"
 	     	data-ad-format="auto"></ins>
-   </div>
+   </div> -->
 <% end %>
-<div id="MobileadAreaDiv"></div>
 
 <div style="padding-top: 10px;">
 	<hr style="border-bottom: 0; color: gray; margin:0;" />
@@ -87,33 +86,8 @@
 </div>
 
 <script>
-	cname = "uniq_key";
-	if(document.cookie == ""){
-	    var expire = new Date();
-	    expire.setDate(expire.getDate() + 1000);
-	    cookies = cname + '=' + getUUID() + '; path=/ '; 
-	    cookies += ';expires=' + expire.toGMTString() + ';';
-		document.cookie = cookies;
-	}
-	$("#play_uniq_key").val(getCookie());
-
-	function getUUID() {
-		return 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-		var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-		return v.toString(16);
-		});
-	}
 	
-	function getCookie() {
-	    var name = cname + "=";
-	    var ca = document.cookie.split(';');
-	    for(var i=0; i<ca.length; i++) {
-	        var c = ca[i];
-	        while (c.charAt(0)==' ') c = c.substring(1);
-	        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-	    }
-	    return "";
-	}
+	$("#play_uniq_key").val(getCookie());
 	
 	$('#go').click(function(){
 		var owner_name = $.trim( $("#play_owner_name").val() ); 
@@ -127,24 +101,27 @@
 	})
 </script>
 <script>
-    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+	// 사용할 앱의 JavaScript 키를 설정해 주세요.
     Kakao.init('db06d124c2ef3f283fedea4c9ab19959');
-
-    // 카카오톡 링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
-    Kakao.Link.createTalkLinkButton({
-      container: '#kakao-link-btn',
-      // label: '반려동물과 나의 궁합이 궁금하신가요??',
-      label: "[Happy House]\n\n반려동물과 나의 궁합점수는?!\n나와 반려견의 전생은 과연 무엇이었을까?\n가끔은 내가 반려견의 집사는 아닌지, 반려견이 나를 무시하고 있는 것 같은데 도대체 왜 그런지 궁금할 때가 있지 않으신가요?\n재미로 보는 나와 반려견의 전생을 통해, 둘 사이의 궁합을 알아보세요!",
-      // image: {
-        // src: 'https://lh3.googleusercontent.com/zPqyBVjBcO4WKiNChwOY2Rn_1QFwMISe9Hf_F80lJ-XLRTcC7NbzDFSKImrsOKV5sg=w300-rw',
-        // width: '300',
-        // height: '300'
-      // },
-      webButton: {
-        text: '지금 궁합보러 가기!!',
-        url: 'http://happyhouse.me/compatibilities/new' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
-      }
-    });
+    function sendLink() {
+    	$.ajax({
+		   url: "/logs/create_log",
+		   dataType:'json',
+		   data: {cookie: getCookie(), f_log: "<%=LOG_KAKAO%>", s_log: "<%=LOG_KAKAO_PLAY_SHARE_NEW%>"},
+		   type:'POST',
+		   success: function(data){
+			   	Kakao.Link.sendTalkLink({
+			        label: "[Happy House]\n\n반려동물과 나의 궁합점수는?!\n나와 반려견의 전생은 과연 무엇이었을까?\n가끔은 내가 반려견의 집사는 아닌지, 반려견이 나를 무시하고 있는 것 같은데 도대체 왜 그런지 궁금할 때가 있지 않으신가요?\n재미로 보는 나와 반려견의 전생을 통해, 둘 사이의 궁합을 알아보세요!",
+				    webButton: {
+				    	text: '지금 궁합보러 가기!!',
+				        url: 'http://happyhouse.me/compatibilities/new' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
+					}
+			    });
+		   }
+		});
+    }
+    
+    
 </script>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
@@ -162,16 +139,3 @@
  	};
 </script>
 <script type="text/javascript" src="http://m1.daumcdn.net/adtc/js/mobilead.js"></script> -->
-
-
-
-
-
-
-
-
-
-
-
-
-
