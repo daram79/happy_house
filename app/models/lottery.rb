@@ -1,7 +1,7 @@
 class Lottery < ActiveRecord::Base
   
-  def self.create_lottery(tel_no, type, today, user_id)
-    lottery = Lottery.create(tel_no: tel_no, lottery_type: type, date: today, user_id: user_id)
+  def self.create_lottery(tel_no, type, today, user_id, chance)
+    lottery = Lottery.create(tel_no: tel_no, lottery_type: type, date: today, user_id: user_id, chance: chance)
     if lottery.id < 101
       win_per = 3 #25
     # elsif lottery.id < 101

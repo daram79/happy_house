@@ -71,22 +71,17 @@ class LotteriesController < ApplicationController
     
     Log.create_log(cookies[:uniq_key], LOG_STAR_BUCKS, s_log, device, params[:user_id])
     
-    # if type == "web"
-      # lottery = Lottery.where(tel_no: tel_no, lottery_type: type, date: today)
-    # elsif type == "app"
-      # lottery = Lottery.where(user_id: params[:user_id], lottery_type: type, date: today)
-    # end
     if type == "app"
       lottery = Lottery.where(user_id: params[:user_id], lottery_type: type, date: today)
       if lottery.blank?
-        lottery = Lottery.create_lottery(tel_no, type, today, params[:user_id])
+        lottery = Lottery.create_lottery(tel_no, type, today, params[:user_id], 1)
         render json: {lottery_flg: 0, lottery: lottery}
       elsif lottery.size == 1
         #1번 참여
         feed = Feed.where(user_id: params[:user_id])
         if feed.size > 0
           #이벤트에 한번 참여하고, 피드에 글 있을때
-          lottery = Lottery.create_lottery(tel_no, type, today, params[:user_id])
+          lottery = Lottery.create_lottery(tel_no, type, today, params[:user_id], 2)
           render json: {lottery_flg: 1, feed_data:true, lottery: lottery}
         else
           #이벤트에 한번 참여하고, 피드에 글 없을때
