@@ -22,11 +22,12 @@
  
   
 </head>
+
 	<body style="margin: 0;">
 		<% user_agent = request.env['HTTP_USER_AGENT'].downcase %>
 		<% if user_agent.match(/android/) %>
 			<% session[:user_agent] = "android" %>
-		<% elsif user_agent.match(/ios/) %>
+		<% elsif user_agent.match(/iphone/) || user_agent.match(/ipad/) %>
 			<% session[:user_agent] = "ios" %>
 		<% else %>
 			<% session[:user_agent] = "another" %>
