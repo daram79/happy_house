@@ -1,7 +1,6 @@
 #encoding: utf-8
-require 'gcm'
 require "#{File.dirname(__FILE__)}/../../config/environment.rb"
-
+require 'gcm'
 
 # registration_id = Alram.where(send_flg: false).group(:user_id).includes(:user).pluck(:registration_id)
 registration_ids = []
