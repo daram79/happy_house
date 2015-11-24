@@ -63,4 +63,10 @@ unless registration_ids.blank?
   alrams = Alram.where(user_id: user_ids)
   alrams.update_all(send_flg: false)
   
+  # ActiveRecord::Base.transaction do
+    # 100.times do |_i|
+      # Book.create! :name => "book_#{i}_#{_i}"
+    # end
+  # end
+  
 end

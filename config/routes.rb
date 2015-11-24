@@ -27,6 +27,8 @@ Rails.application.routes.draw do
       get "get_user_data"
       get "get_visitor_book"
       put "close_guide"
+      put "get_visitor_book_read_flg"
+      put "set_visitor_book_read_flg"
     end
     collection do
       get "agreement"

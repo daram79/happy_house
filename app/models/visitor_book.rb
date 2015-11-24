@@ -9,6 +9,7 @@ class VisitorBook < ActiveRecord::Base
   def create_alram
     if self.user_id != self.send_user_id
       self.alram.create(user_id: self.user_id, send_user_id: self.send_user_id)
+      self.user.update(visiter_book_read_flg: false)
     end
   end
   

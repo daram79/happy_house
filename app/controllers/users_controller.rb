@@ -135,6 +135,18 @@ class UsersController < ApplicationController
   def notice
     @notices = Notice.all.order("id desc")
   end
+  
+  def get_visitor_book_read_flg
+    user = User.find(params[:id])
+    render json: {visiter_book_read_flg: user.visiter_book_read_flg}
+  end
+  
+  def set_visitor_book_read_flg
+    user = User.find(params[:id])
+    user.update(visiter_book_read_flg: true)
+    render json: {visiter_book_read_flg: user.visiter_book_read_flg}
+  end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.
