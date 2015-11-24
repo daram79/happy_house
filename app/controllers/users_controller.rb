@@ -147,6 +147,24 @@ class UsersController < ApplicationController
     render json: {visiter_book_read_flg: user.visiter_book_read_flg}
   end
   
+  def add_like_user
+    user_like = UserLike.where(user_id: params[:id], like_user_id: params[:like_user_id])
+    if user_like.blank?
+      user_like = UserLike.create(user_id: params[:id], like_user_id: params[:like_user_id])
+      add_flg = true
+    else
+      user_like.destroy_all
+      add_flg = false
+    end
+    render json: {add_flg: add_flg}
+  end
+  
+  def get_like_user
+    user_like = UserLike.where(user_id: params[:id], like_user_id: params[:like_user_id])
+    add_flg = user_like.blank? ? false : true
+    render json: {add_flg: add_flg}
+  end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :alram, :as => :alram
   has_many :registrations
   has_many :visitor_books
+  has_many :user_likes
   
   after_create :create_alram
   after_create :create_visitor_book

@@ -29,6 +29,8 @@ Rails.application.routes.draw do
       put "close_guide"
       put "get_visitor_book_read_flg"
       put "set_visitor_book_read_flg"
+      post "add_like_user"
+      get "get_like_user"
     end
     collection do
       get "agreement"
