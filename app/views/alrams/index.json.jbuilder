@@ -19,6 +19,9 @@ json.array!(@alrams) do |alram|
     json.feed_photo alram.alram.feed_photos.first
   elsif alram.alram_type == "VisitorBook" || alram.alram_type == "User"
   	json.feed_photo nil
+  elsif alram.alram_type == "Comment"
+  	json.feed alram.alram.feed
+  	json.feed_photo alram.alram.feed.feed_photos.first
   else
     json.feed_photo alram.alram.feed.feed_photos.first
   end

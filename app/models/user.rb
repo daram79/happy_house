@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
     # user_ids.delete(self.id)
     user_ids = [1, 2]
     user_ids.each do |user_id|
-      self.alram.create(user_id: user_id, send_user_id: self.id)
+      self.alram.create(user_id: user_id, send_user_id: self.id, push_msg: "새로운 회원이 가입했습니다.")
     end
   end
   

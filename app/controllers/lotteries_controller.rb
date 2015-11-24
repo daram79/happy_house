@@ -72,7 +72,7 @@ class LotteriesController < ApplicationController
     Log.create_log(cookies[:uniq_key], LOG_STAR_BUCKS, s_log, device, params[:user_id])
     
     if type == "app"
-      lottery = Lottery.where(user_id: params[:user_id], lottery_type: type, date: today)
+      lottery = Lottery.where(user_id: params[:user_id], lottery_type: type)
       if lottery.blank?
         lottery = Lottery.create_lottery(tel_no, type, today, params[:user_id], 1)
         render json: {lottery_flg: 0, lottery: lottery}
