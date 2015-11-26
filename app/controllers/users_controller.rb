@@ -165,6 +165,31 @@ class UsersController < ApplicationController
     render json: {add_flg: add_flg}
   end
   
+  def get_user_list
+    # user_ids = User.all.ids - [ params[:user_id].to_i ]
+    start_week = DateTime.now.prev_week
+    #내 친구 리스트
+    like_user_ids = UserLike.where(user_id: params[:user_id]).pluck(:like_user_id)
+    like_user_ids.push params[:user_id].to_i
+    user_feed_ids = Feed.where("created_at > ?", start_week).group(:user_id).pluck(:user_id) - like_user_ids 
+    users = UserCover.where(user_id: user_feed_ids).where("image is not null")
+    render json: users
+  end
+  
+  def chk_recommend_user_list
+    start_week = DateTime.now.prev_week
+    #내 친구 리스트
+    like_user_ids = UserLike.where(user_id: params[:user_id]).pluck(:like_user_id)
+    like_user_ids.push params[:user_id].to_i
+    user_feed_ids = Feed.where("created_at > ?", start_week).group(:user_id).pluck(:user_id) - like_user_ids 
+    users = UserCover.where(user_id: user_feed_ids).where("image is not null")
+    if users.blank?
+      render json: false
+    else
+      render json: true
+    end
+  end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.

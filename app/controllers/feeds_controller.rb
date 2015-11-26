@@ -10,7 +10,14 @@ class FeedsController < ApplicationController
   def index
     if params[:user_id]
       @current_user = User.find(params[:user_id])
-      @feeds = Feed.all.order('updated_at desc').limit(100)
+      if "newest".eql?(params[:tab])
+        @feeds = Feed.all.order('updated_at desc').limit(50)
+      else
+        user_ids = UserLike.where(user_id: params[:user_id]).pluck(:like_user_id)
+        @feeds = Feed.where(user_id: user_ids).order('updated_at desc').limit(50)
+        # @feeds = Feed.all.order('updated_at desc').limit(50)
+      end
+      
     else
       @feeds = Feed.all.order('updated_at desc').limit(20)
     end

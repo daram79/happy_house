@@ -38,6 +38,8 @@ Rails.application.routes.draw do
       get "notice"
       get "createVisitCount"
       post "create_visitor_book"
+      get "get_user_list"
+      get "chk_recommend_user_list"
     end
   end
   
