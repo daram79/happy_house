@@ -27,9 +27,17 @@
 							
 						</td> -->
 						<td rowspan="2" style="padding: 0;width: 50px; height: 50px; background-position: center; background-repeat: no-repeat; overflow: hidden;" >
+							<% if feed.user.user_cover %>
 							<img style="width:50px; height: 50px; border-radius: 25px; -webkit-border-radius: 25px; -moz-border-radius: 25px; no-repeat;" src="<%=feed.user.user_cover.image.url%>" />
+							<% else %>
+							<img style="width:50px; height: 50px; border-radius: 25px; -webkit-border-radius: 25px; -moz-border-radius: 25px; no-repeat;" src="/uploads/cover/cover.png" />
+							<% end %>
 						</td>
+						<% if feed.user.user_cover %>
 						<td style="padding: 0;"><%= feed.user.user_cover.name %></td>
+						<% else %>
+						<td style="padding: 0;">.</td>
+						<% end %>
 					</tr>
 					<tr>
 						<td style="padding: 0;"><%= @time_word[feed.id] %></td>
