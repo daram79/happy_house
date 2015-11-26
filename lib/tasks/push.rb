@@ -4,12 +4,21 @@ require 'gcm'
 
 # registration_id = Alram.where(send_flg: false).group(:user_id).includes(:user).pluck(:registration_id)
 registration_ids = []
-alrams = Alram.where(send_flg: false).group(:user_id)
-alrams.each do |alram|
-  regi_ids = alram.user.registrations.pluck(:registration_id)
-  registration_ids += regi_ids
-end
 
+
+
+alram_user_ids = Alram.where(send_flg: false).pluck(:user_id).uniq
+user_cover_ids = UserCover.where("name is not null").pluck(:user_id)
+user_ids = alram_user_ids & user_cover_ids
+
+
+# alrams.each do |alram|
+  # regi_ids = alram.user.registrations.pluck(:registration_id)
+  # registration_ids += regi_ids
+# end
+
+
+registration_ids = Registration.where(user_id: user_ids).pluck(:registration_id)
 registration_ids.compact!
 
 unless registration_ids.blank?
