@@ -48,6 +48,9 @@ Rails.application.routes.draw do
       post "add_name"
       get "get_image_url"
     end
+    member do
+      get "check_cover_name"
+    end
   end
   
   resources :feeds do

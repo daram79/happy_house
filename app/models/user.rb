@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   def create_visitor_book
     lottery = Lottery.last
     visitor_book_content = FirstVisitorBookContent.last
-    self.visitor_books.create(user_id: self.id, send_user_id: 1, content: visitor_book_content.content)
+    self.visitor_books.create(user_id: self.id, send_user_id: 1, content: visitor_book_content.content) if FirstVisitorBookContent.send_flg
   end
   
 end

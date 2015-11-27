@@ -89,6 +89,15 @@ class UserCoversController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def check_cover_name
+    user_cover = User.find(params[:id]).user_cover
+    if user_cover && user_cover.name
+      render json:{user_name_flg: true}
+    else
+      render json:{user_name_flg: false}
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

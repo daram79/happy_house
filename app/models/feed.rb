@@ -48,14 +48,17 @@ class Feed < ActiveRecord::Base
   end
   
   def create_alram
-    user_ids = User.where(alram_on: true).pluck(:id)
-    user_cover_ids = UserCover.where("name is not null").pluck(:user_id)
-    
-    send_user_ids = user_ids & user_cover_ids
-    
-    send_user_ids.delete(self.user_id)
-    send_user_ids.each do |user_id|
-      self.alram.create(user_id: user_id, send_user_id: self.user_id, push_msg: self.user.user_cover.name + "님이 사진을 올렸습니다.")
+    if self.user.user_cover && self.user.user_cover.name
+      user_ids = User.where(alram_on: true).pluck(:id)
+      user_cover_ids = UserCover.where("name is not null").pluck(:user_id)
+  
+      send_user_ids = user_ids & user_cover_ids
+  
+      send_user_ids.delete(self.user_id)
+      
+      send_user_ids.each do |user_id|
+        self.alram.create(user_id: user_id, send_user_id: self.user_id, push_msg: self.user.user_cover.name + "님이 사진을 올렸습니다.")
+      end
     end
   end
   
